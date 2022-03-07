@@ -115,6 +115,7 @@ int Task(int** array, int rows, int cols)
 	for (unsigned int i = 0; i < cols - 1; i++)
 		if (max < tmp[0][i + 1]) max = tmp[0][i + 1];
 
+	free(tmp[0]);
 	free(tmp);
 
 	return max;
