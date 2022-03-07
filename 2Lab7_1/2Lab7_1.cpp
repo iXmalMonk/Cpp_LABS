@@ -3,7 +3,7 @@
 
 int* AllocateArray(int rows, int cols)
 {
-	int *array = (int*)malloc(sizeof(int) * rows * cols);
+	int* array = (int*)malloc(sizeof(int) * rows * cols);
 
 	return array;
 }
@@ -28,11 +28,11 @@ int* CreateArray(int* rows, int* cols)
 
 void PrintArray(int* array, int rows, int cols)
 {
-	for (unsigned int i = 0, j = 0; i < rows * cols; ++i)
+	for (unsigned int i = 0; i < rows; i++)
 	{
-		printf("%5i ", array[i]);
-		j++;
-		if (j % cols == 0) printf("\n");
+		for (unsigned int j = 0; j < cols; j++)
+			printf("%5i ", array[i * cols + j]);
+		printf("\n");
 	}
 
 	printf("\n");
@@ -63,7 +63,7 @@ int* FillArrayFromTxt(int* rows, int* cols)
 	FILE* f;
 	if (fopen_s(&f, "array.txt", "r") != 0) exit(1);
 	fscanf_s(f, "%i%i", rows, cols);
-	int *array = AllocateArray(*rows, *cols);
+	int* array = AllocateArray(*rows, *cols);
 	for (unsigned int i = 0; i < *rows * *cols; i++)
 		fscanf_s(f, "%i", &array[i]);
 
@@ -73,7 +73,7 @@ int* FillArrayFromTxt(int* rows, int* cols)
 
 int Task(int* array, int rows, int cols)
 {
-	int *tmp = AllocateArray(1, cols);
+	int* tmp = AllocateArray(1, cols);
 
 	for (unsigned int i = 0; i < cols; i++)
 	{
@@ -129,7 +129,7 @@ int main()
 	printf("\n");
 
 	PrintArray(array, rows, cols);
-	printf("\tMax = %i",Task(array, rows, cols));
+	printf("\tMax = %i", Task(array, rows, cols));
 	free(array);
 
 	return 0;
