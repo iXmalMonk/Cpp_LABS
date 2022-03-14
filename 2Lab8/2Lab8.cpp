@@ -1,24 +1,36 @@
 #include<iostream>
 #include<time.h>
+#include<Windows.h>
+
+//#define OUTPUT_HANDLE -11				// this
+										// or
+constexpr auto OUTPUT_HANDLE = -11;		// this
 
 // TERMINATE_SYMBOL = NULL
 
 struct RaggedArray {
-	int rows = 0;
-	int* cols = NULL;
 	int** data = NULL;
 };
 
+/*
 int InputRows()
 {
 	int rows = 0;
 
 	system("cls");
 
-	printf("\tДиапазон\n\t[1;500]\n");
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 12);
+
+	printf("\tRows\n");
+	
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 11);
+
+	printf("\tRange\n\t[1;500]\n");
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 7);
 
 	do {
-		printf("Введите количество строк = ");
+		printf("Numbers of rows = ");
 		scanf_s("%i", &rows);
 	} while (rows < 1 or rows > 500);
 
@@ -26,15 +38,27 @@ int InputRows()
 
 	return rows;
 }
+*/
 
-int InputCols()
+/*
+int InputCols(int rows)
 {
 	int cols = 0;
 
-	printf("\tДиапазон\n\t[1;500]\n");
+	system("cls");
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 12);
+
+	printf("\tColumns\n");
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 11);
+
+	printf("\tRange\n\t[1;500]\n");
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 7);
 
 	do {
-		printf("Введите количество элементов строки = ");
+		printf("Numbers of columns %i = ", rows);
 		scanf_s("%i", &cols);
 	} while (cols < 1 or cols > 500);
 
@@ -42,25 +66,80 @@ int InputCols()
 
 	return cols;
 }
+*/
+
 
 void CreateRaggedArrayWithKeyboard(RaggedArray& array)
 {
-	int cols = 0;
+	int rows = 0, cols = 0;
 
-	array.rows = InputRows();
+	//rows = InputRows();
 
-	array.data = (int**)malloc(sizeof(int*) * (array.rows + 1));
-	array.data[array.rows] = NULL;
+	//
+	system("cls");
 
-	array.cols = (int*)malloc(sizeof(int) * (array.rows + 1));
-	array.cols[array.rows] = NULL;
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 12);
+
+	printf("\tRows\n");
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 11);
+
+	printf("\tRange\n\t[1;500]\n");
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 7);
+
+	do {
+		printf("Numbers of rows = ");
+		scanf_s("%i", &rows);
+	} while (rows < 1 or rows > 500);
+
+	system("cls");
+
+	rows += 1;
+	//
+
+	array.data = (int**)malloc(sizeof(int*) * rows);
+
+	//
+	rows -= 1;
+	//
+
+	array.data[rows] = NULL;
 
 	for (unsigned int i = 0; array.data[i] != NULL; i++)
 	{
-		cols = InputCols();
-		array.data[i] = (int*)malloc(sizeof(int) * (cols + 1));
+		//cols = InputCols(i + 1);
+
+		//
+		SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 12);
+
+		printf("\tColumns\n");
+
+		SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 11);
+
+		printf("\tRange\n\t[1;500]\n");
+
+		SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 7);
+
+		do {
+			printf("Numbers of columns %i = ", i + 1);
+			scanf_s("%i", &cols);
+		} while (cols < 1 or cols > 500);
+
+		cols += 1;
+		//
+
+		array.data[i] = (int*)malloc(sizeof(int) * cols);
+
+		//
+		cols -= 1;
+		//
+
 		array.data[i][cols] = NULL;
-		array.cols[i] = cols;
+
+		//
+		system("cls");
+		//
 	}
 }
 
@@ -68,33 +147,74 @@ void FillRaggedArrayWithRandomNumbers(RaggedArray& array)
 {
 	srand(time(NULL));
 
-	int B = 0;
+	int A = 0, B = 0;
 
-	printf("\tРандомные числа\n\tДиапазон\n\t[1;B]\n"); // [1;B] because TERMINATE_SYMBOL = NULL
+	system("cls");
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 12);
+
+	printf("\tRandom numbers\n");
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 11);
+
+	printf("\tRange\n\t[A;B] | 0 < A \n");	// [1;B] because TERMINATE_SYMBOL = NULL
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 7);
+
+	do {
+		printf("A = ");
+		scanf_s("%i", &A);
+	} while (1 > A);
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 11);
+
+	printf("\n\t[%i;B]\n\n", A);
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 7);
 
 	do {
 		printf("B = ");
 		scanf_s("%i", &B);
-	} while (1 > B);
-
-	printf("[1;%i]\n", B);
+	} while (A > B);
 
 	for (unsigned int i = 0; array.data[i] != NULL; i++)
 		for (unsigned int j = 0; array.data[i][j] != NULL; j++)
-			array.data[i][j] = rand() % B + 1;
+			array.data[i][j] = rand() % (B - A + 1) + A;
 
 	system("cls");
 }
 
 void PrintRaggedArray(RaggedArray array)
 {
-	system("cls");
+	int counter = 0;
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 12);
+
+	printf("\tRagged array\n\n");
+
+	for (unsigned int i = 0; array.data[i] != NULL; i++)
+		for (unsigned int j = 0; array.data[i][j] != NULL; j++)
+			if (counter < j) counter = j;
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 11);
+
+	printf("\t    ");
+
+	for (unsigned int i = 0; i <= counter; i++)
+		printf("%5i", i + 1);
+
+	printf("\n");
 
 	for (unsigned int i = 0; array.data[i] != NULL; i++)
 	{
-		printf("\t");
+		SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 11);
+
+		printf("\t%3i ", i + 1);
+
+		SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 7);
+
 		for (unsigned int j = 0; array.data[i][j] != NULL; j++)
-			printf("%3i", array.data[i][j]);
+			printf("%5i", array.data[i][j]);
 		printf("\n");
 	}
 
@@ -103,10 +223,36 @@ void PrintRaggedArray(RaggedArray array)
 
 void PrintSizeRaggedArray(RaggedArray array)
 {
-	printf("\tКоличество строк = %i\n", array.rows);
+	int rows = 0, cols = 0;
 
-	for (unsigned int i = 0; array.cols[i] != NULL; i++)
-		printf("\tКоличество элементов строки %i = %i\n", i + 1, array.cols[i]);
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 12);
+
+	printf("\tSize ragged array\n");
+
+	while (array.data[rows] != NULL) rows++;
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 11);
+
+	printf("\tRows\n\n");
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 10);
+
+	printf("\tNumber of rows = %3i\n\n", rows);
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 11);
+
+	printf("\tColumns\n\n");
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 10);
+
+	for (unsigned int i = 0; array.data[i] != NULL; i++)
+	{
+		cols = 0;
+		while (array.data[i][cols] != NULL) cols++;
+		printf("\tNumber of columns %3i = %i\n", i + 1, cols);
+	}
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 7);
 
 	printf("\n");
 }
@@ -116,8 +262,8 @@ void DestroyRaggedArray(RaggedArray &array)
 	for (unsigned int i = 0; array.data[i] != NULL; i++)
 		free(array.data[i]);
 	free(array.data);
-	free(array.cols);
-	array.data = NULL, array.cols = NULL; array.rows = 0;
+
+	array.data = NULL;
 }
 
 // rows
@@ -125,24 +271,35 @@ void DestroyRaggedArray(RaggedArray &array)
 // ... 
 // colsN number1 number2 ... numberN
 
-void CreateRaggedArrayFromTxtFile(RaggedArray& array)
+void CreateRaggedArrayFromTxtFile(RaggedArray& array, const char* filenameTxt)
 {
+	int rows = 0, cols = 0;
+
 	FILE* txt;
-	if (fopen_s(&txt, "raggedarray.txt", "rt") != 0) exit(1);
 
-	fscanf_s(txt, "%i", &array.rows);
+	if (fopen_s(&txt, filenameTxt, "rt") != 0) exit(1);
 
-	array.data = (int**)malloc(sizeof(int*) * (array.rows + 1));
-	array.data[array.rows] = NULL;
+	fscanf_s(txt, "%i", &rows);
 
-	array.cols = (int*)malloc(sizeof(int) * (array.rows + 1));
-	array.cols[array.rows] = NULL;
+	rows += 1;
+
+	array.data = (int**)malloc(sizeof(int*) * rows);
+
+	rows -= 1;
+
+	array.data[rows] = NULL;
 
 	for (unsigned int i = 0; array.data[i] != NULL; i++)
 	{
-		fscanf_s(txt, "%i", &array.cols[i]);
-		array.data[i] = (int*)malloc(sizeof(int) * (array.cols[i] + 1));
-		array.data[i][array.cols[i]] = NULL;
+		fscanf_s(txt, "%i", &cols);
+
+		cols += 1;
+
+		array.data[i] = (int*)malloc(sizeof(int) * cols);
+
+		cols -= 1;
+
+		array.data[i][cols] = NULL;
 		for (unsigned int j = 0; array.data[i][j] != NULL; j++)
 			fscanf_s(txt, "%i", &array.data[i][j]);
 	}
@@ -150,16 +307,23 @@ void CreateRaggedArrayFromTxtFile(RaggedArray& array)
 	fclose(txt);
 }
 
-void InputtingRaggedArrayInTxtFile(RaggedArray array)
+void InputtingRaggedArrayInTxtFile(RaggedArray array, const char* filenameTxt)
 {
-	FILE* txt;
-	if (fopen_s(&txt, "raggedarray.txt", "wt") != 0) exit(1);
+	int rows = 0, cols = 0;
 
-	fprintf(txt, "%i\n", array.rows);
+	FILE* txt;
+
+	if (fopen_s(&txt, filenameTxt, "wt") != 0) exit(1);
+
+	while (array.data[rows] != NULL) rows++;
+
+	fprintf(txt, "%i\n", rows);
 
 	for (unsigned int i = 0; array.data[i] != NULL; i++)
 	{
-		fprintf(txt, "%i ", array.cols[i]);
+		cols = 0;
+		while (array.data[i][cols] != NULL) cols++;
+		fprintf(txt, "%i ", cols);
 		for (unsigned int j = 0; array.data[i][j] != NULL; j++)
 			fprintf(txt, "%i ", array.data[i][j]);
 		fprintf(txt, "\n");
@@ -168,54 +332,85 @@ void InputtingRaggedArrayInTxtFile(RaggedArray array)
 	fclose(txt);
 }
 
-void CreateRaggedArrayFromBinFile(RaggedArray& array)
+// rows
+// cols1 number1 number2 ... numberN
+// ... 
+// colsN number1 number2 ... numberN
+
+void CreateRaggedArrayFromBinFile(RaggedArray& array, const char* filenameBin)
 {
+	int rows = 0, cols = 0;
+
 	FILE* bin;
-	if (fopen_s(&bin, "raggedarray.bin", "rb") != 0) exit(1);
 
-	fread(&array.rows, sizeof(int), 1, bin);
+	if (fopen_s(&bin, filenameBin, "rb") != 0) exit(1);
 
-	array.data = (int**)malloc(sizeof(int*) * (array.rows + 1));
-	array.data[array.rows] = NULL;
+	fread(&rows, sizeof(int), 1, bin);
 
-	array.cols = (int*)malloc(sizeof(int) * (array.rows + 1));
-	array.cols[array.rows] = NULL;
+	rows += 1;
+
+	array.data = (int**)malloc(sizeof(int*) * rows);
+
+	rows -= 1;
+
+	array.data[rows] = NULL;
 
 	for (unsigned int i = 0; array.data[i] != NULL; i++)
 	{
-		fread(&array.cols[i], sizeof(int), 1, bin);
-		array.data[i] = (int*)malloc(sizeof(int) * (array.cols[i] + 1));
-		array.data[i][array.cols[i]] = NULL;
-		for (unsigned int j = 0; array.data[i][j] != NULL; j++)
-			fread(&array.data[i][j], sizeof(int), 1, bin);
+		fread(&cols, sizeof(int), 1, bin);
+
+		cols += 1;
+
+		array.data[i] = (int*)malloc(sizeof(int) * cols);
+
+		cols -= 1;
+
+		array.data[i][cols] = NULL;
+		fread(array.data[i], sizeof(int), cols, bin);
 	}
 
 	fclose(bin);
 }
 
-void InputtingRaggedArrayInBinFile(RaggedArray array)
+void InputtingRaggedArrayInBinFile(RaggedArray array, const char* filenameBin)
 {
-	FILE* bin;
-	if (fopen_s(&bin, "raggedarray.bin", "wb") != 0) exit(1);
+	int rows = 0, cols = 0;
 
-	fwrite(&array.rows, sizeof(int), 1, bin);
+	FILE* bin;
+
+	if (fopen_s(&bin, filenameBin, "wb") != 0) exit(1);
+
+	while (array.data[rows] != NULL) rows++;
+
+	fwrite(&rows, sizeof(int), 1, bin);
 
 	for (unsigned int i = 0; array.data[i] != NULL; i++)
 	{
-		fwrite(&array.cols[i], sizeof(int), 1, bin);
-		for (unsigned int j = 0; array.data[i][j] != NULL; j++)
-			fwrite(&array.data[i][j], sizeof(int), 1, bin);
+		cols = 0;
+		while (array.data[i][cols] != NULL) cols++;
+		fwrite(&cols, sizeof(int), 1, bin);
+		fwrite(array.data[i], sizeof(int), cols, bin);
 	}
 
 	fclose(bin);
 }
 
-void ChoiceFillRaggedArray(RaggedArray& array)
+void ChoiceFillRaggedArray(RaggedArray& array, const char* filenameTxt, const char* filenameBin)
 {
 	int choice = 0;
 
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 12);
+
+	printf("\tFill ragged array\n");
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 11);
+
+	printf("\t[1] Keyboard\n\t[2] Txt\n\t[3] Bin\n");
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 7);
+
 	do {
-		printf("\t[1] Keyboard\n\t[2] Txt\n\t[3] Bin\n[...] = ");
+		printf("[...] = ");
 		scanf_s("%i", &choice);
 
 		switch (choice)
@@ -225,54 +420,108 @@ void ChoiceFillRaggedArray(RaggedArray& array)
 			FillRaggedArrayWithRandomNumbers(array);
 			break;
 		case 2:
-			CreateRaggedArrayFromTxtFile(array);
+			CreateRaggedArrayFromTxtFile(array, filenameTxt);
 			break;
 		case 3:
-			CreateRaggedArrayFromBinFile(array);
+			CreateRaggedArrayFromBinFile(array, filenameBin);
 			break;
 		}
 		
 	} while (choice != 1 and choice != 2 and choice != 3);
+
+	system("cls");
 }
 
-void ChoiceInputtingRaggedArray(RaggedArray array)
+void ChoiceInputtingRaggedArray(RaggedArray array, const char* filenameTxt, const char* filenameBin)
 {
 	int choice = 0;
 
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 12);
+
+	printf("\tInputting ragged array\n");
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 11);
+
+	printf("\t[1] Txt\n\t[2] Bin\n\t[3] Txt&Bin\n\t[4] None\n");
+
+	SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 7);
+
 	do {
-		printf("\t[1] Txt\n\t[2] Bin\n[...] = ");
+		printf("[...] = ");
 		scanf_s("%i", &choice);
 
 		switch (choice)
 		{
 		case 1:
-			InputtingRaggedArrayInTxtFile(array);
+			InputtingRaggedArrayInTxtFile(array, filenameTxt);
 			break;
 		case 2:
-			InputtingRaggedArrayInBinFile(array);
+			InputtingRaggedArrayInBinFile(array, filenameBin);
 			break;
+		case 3:
+			InputtingRaggedArrayInTxtFile(array, filenameTxt);
+			InputtingRaggedArrayInBinFile(array, filenameBin);
 		}
 
-	} while (choice != 1 and choice != 2);
+	} while (choice != 1 and choice != 2 and choice != 3 and choice != 4);
+
+	system("cls");
+}
+
+void ChoicePrint(RaggedArray array)
+{
+	int choice = 0;
+
+	do {
+		SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 12);
+
+		printf("\tPrint ragged array\n");
+
+		SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 11);
+
+		printf("\t[1] Array\n\t[2] Size array\n\t[3] Array&Size array\n\t[4] Exit\n");
+
+		SetConsoleTextAttribute(GetStdHandle(OUTPUT_HANDLE), 7);
+
+		printf("[...] = ");
+		scanf_s("%i", &choice);
+
+		system("cls");
+
+		switch (choice)
+		{
+		case 1:
+			system("cls");
+			PrintRaggedArray(array);
+			break;
+		case 2:
+			system("cls");
+			PrintSizeRaggedArray(array);
+			break;
+		case 3:
+			system("cls");
+			PrintRaggedArray(array);
+			PrintSizeRaggedArray(array);
+		}
+
+	} while (choice != 4);
+
+	system("cls");
 }
 
 int main()
 {
-	system("chcp 1251 > nul");
+	//system("chcp 1251 > nul");
 
 	RaggedArray array;
 
-	ChoiceFillRaggedArray(array);
+	ChoiceFillRaggedArray(array, "raggedarray.txt", "raggedarray.bin");
 
-	PrintRaggedArray(array);
+	ChoicePrint(array);
 
-	PrintSizeRaggedArray(array);
-
-	ChoiceInputtingRaggedArray(array);
+	ChoiceInputtingRaggedArray(array, "raggedarray.txt", "raggedarray.bin");
 
 	DestroyRaggedArray(array);
-
-	system("cls");
 
 	//if (array.data == NULL and array.cols == NULL and array.rows == 0) printf("Free ragged array");
 
