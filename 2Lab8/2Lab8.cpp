@@ -523,7 +523,7 @@ int main()
 
 	DestroyRaggedArray(array);
 
-	//if (array.data == NULL and array.cols == NULL and array.rows == 0) printf("Free ragged array");
+	if (array.data == NULL) printf("Free ragged array\n");
 
 	return 0;
 }
