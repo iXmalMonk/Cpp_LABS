@@ -511,14 +511,21 @@ void ChoicePrint(RaggedArray array)
 	system("cls");
 }
 
-//==================================================
+int GetRows(RaggedArray array)
+{
+	int rows = 0;
 
-void AddNewRowAndColumnInRaggedArray(RaggedArray& array, int columns)
+	while (array.data[rows] != NULL) rows++;
+
+	return rows;
+}
+
+void AddNewRowInRaggedArray(RaggedArray& array, int columns)
 {
 	int rows = 0;
 
 	if (array.data != NULL)
-		while (array.data[rows] != NULL) rows++;
+		rows = GetRows(array);
 
 	array.data = (int**)realloc(array.data, sizeof(int*) * (rows + 2));
 
@@ -532,15 +539,34 @@ void AddNewRowAndColumnInRaggedArray(RaggedArray& array, int columns)
 		array.data[rows][i] = 1;
 }
 
-void DeleteLastRowAndColumnInRaggedArray(RaggedArray& array)
+void DeleteLastRowInRaggedArray(RaggedArray& array)
 {
 	int rows = 0;
+
 	if (array.data != NULL)
 	{
-		while (array.data[rows] != NULL) rows++;
+		rows = GetRows(array);
+
+		free(array.data[rows]);
 
 		array.data = (int**)realloc(array.data, sizeof(int*) * rows);
 
 		array.data[rows - 1] = NULL;
 	}
+}
+
+void DeleteRowInRaggedArray(RaggedArray& array, int number)
+{
+	int rows = 0;
+
+	rows = GetRows(array);
+
+	int* temp = array.data[number - 1];
+
+	for (unsigned int i = number - 1; array.data[i] != NULL; i++)
+		array.data[i] = array.data[i + 1];
+
+	array.data[rows - 1] = temp;
+
+	DeleteLastRowInRaggedArray(array);
 }

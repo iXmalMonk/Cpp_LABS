@@ -7,14 +7,10 @@ int main()
 	ChoiceFillRaggedArray(array, "raggedarray.txt", "raggedarray.bin");
 
 	ChoicePrint(array);
-	
-	/*for (unsigned int i = 4; i <= 12; i+= 2)
-		AddNewRowAndColumnInRaggedArray(array, i);*/
 
-	//ChoicePrint(array);
+	DeleteRowInRaggedArray(array, 3);
 
-	/*DeleteLastRowAndColumnInRaggedArray(array);
-	ChoicePrint(array);*/
+	ChoicePrint(array);
 
 	ChoiceInputtingRaggedArray(array, "raggedarray.txt", "raggedarray.bin");
 	
@@ -22,7 +18,7 @@ int main()
 	
 	if (array.data == NULL) printf("Free ragged array\n");
 
-	//system("pause");
+	system("pause");
 	
 	return 0;
 }

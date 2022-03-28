@@ -1,4 +1,6 @@
-//#pragma once
+#ifndef __RAGGEDARRAY_H__
+#define __RAGGEDARRAY_H__
+
 #include<iostream>
 
 struct RaggedArray {
@@ -29,8 +31,12 @@ void ChoiceInputtingRaggedArray(RaggedArray array, const char* filenameTxt, cons
 
 void ChoicePrint(RaggedArray array);
 
-//==================================================
+int GetRows(RaggedArray array);
 
-void AddNewRowAndColumnInRaggedArray(RaggedArray& array, int columns);
+void AddNewRowInRaggedArray(RaggedArray& array, int columns);
 
-void DeleteLastRowAndColumnInRaggedArray(RaggedArray& array);
+void DeleteLastRowInRaggedArray(RaggedArray& array);
+
+void DeleteRowInRaggedArray(RaggedArray& array, int number);
+
+#endif
