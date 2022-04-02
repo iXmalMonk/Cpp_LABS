@@ -1,26 +1,33 @@
 #include <iostream>
+#include "EmailChecker.h"
 
 #define N 256
 
-int main()
+int StrCounterPlusMinusZero(char str[])
 {
-#pragma region TASK_2
-	char task2_str[N];
-	int task2_counter = 0;
+	int counter = 0;
 
-	gets_s(task2_str);
-
-	for (unsigned int i = 0; task2_str[i] != '\0'; i++)
+	for (unsigned int i = 0; str[i] != '\0'; i++)
 	{
-		if (task2_str[i] == '+') task2_counter++;
-		else if (task2_str[i] == '-') task2_counter++;
-		else if (task2_str[i + 1] == '0') task2_counter++;
+		if (str[i] == '+') counter++;
+		else if (str[i] == '-') counter++;
+		else if (str[i + 1] == '0') counter++;
 	}
 
-	printf("%s\n", task2_str);
-	printf("%i\n", task2_counter);
-#pragma endregion
+	return counter;
+}
 
+int main()
+{
+	char str_pmz[N];
+	printf("Enter string: ");
+	gets_s(str_pmz);
+	printf("%i\n", StrCounterPlusMinusZero(str_pmz));
+
+	char email[N];
+	printf("Enter e-mail: ");
+	gets_s(email);
+	CheckEmail(email);
 
 	return 0;
 }
