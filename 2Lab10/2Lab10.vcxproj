@@ -141,9 +141,11 @@
   <ItemGroup>
     <ClCompile Include="2Lab10.cpp" />
     <ClCompile Include="EmailChecker.cpp" />
+    <ClCompile Include="header.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EmailChecker.h" />
+    <ClInclude Include="header.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

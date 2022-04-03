@@ -33,8 +33,8 @@ char* GetWord(char str[], int start, int stop)
 void RemoveSmallLetterWords(char str[])
 {
 	char str_new[N] = { '\0' };
-	int k = 0;
-	bool c = false;
+	int str_new_i = 0;
+	bool flag = false;
 	// Outputing words
 	for (int start = 0, stop = 0; str[stop] != '\0'; stop++)
 	{
@@ -68,20 +68,21 @@ void RemoveSmallLetterWords(char str[])
 
 					for (int i = 0; str_temp[i] != '\0'; i++)
 					{
-						str_new[k++] = str_temp[i];
+						str_new[str_new_i++] = str_temp[i];
 					}
-					str_new[k++] = ' ';
-					c = true;
+					str_new[str_new_i++] = ' ';
+					flag = true;
 				}
 				// NEW STR
 			}
 			// COUNTER
 			free(str_temp);
+			str_temp = NULL;
 			start = stop + 2;
 		}
 	}
 	// Outputing words
-	if (c)
+	if (flag)
 	{
 		// Remove last space
 		for (int i = 0; str_new[i] != '\0'; i++)
@@ -113,6 +114,7 @@ int main()
 		gets_s(email);
 		if (email[0] == '0') break;
 		CheckEmail(email);
+		printf("\n");
 	}
 
 	/*char str[N];

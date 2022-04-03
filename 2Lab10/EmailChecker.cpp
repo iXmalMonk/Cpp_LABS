@@ -1,4 +1,5 @@
 #include <iostream>
+#include "header.h"
 
 /*
 1. Имя пользователя должно начинаться с буквы
@@ -187,6 +188,18 @@ void CheckEmail(char str[])
 		}
 	}
 
-	if (email.domen_correct) printf("Email correct\n");
-	else printf("Email incorrect\n");
+	SetConsoleColor(15);
+	printf("Email ");
+	if (email.domen_correct)
+	{
+		SetConsoleColor(10);
+		printf("correct\n");
+		SetConsoleColor(7);
+	}
+	else
+	{
+		SetConsoleColor(12);
+		printf("incorrect\n");
+		SetConsoleColor(7);
+	}
 }
