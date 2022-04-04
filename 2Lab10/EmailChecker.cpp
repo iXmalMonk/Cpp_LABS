@@ -150,47 +150,32 @@ void CheckEmail(char str[])
 	Email email;
 
 	UsernameFirstSymbol(str, email);
-	if (email.username_first_symbol)
-	{
-		DogSymbolAndIndex(str, email);
-		if (email.dog_symbol)
-		{
-			UsernameLastSymbol(str, email);
-			if (email.username_last_symbol)
-			{
-				UsernameLength(str, email);
-				if (email.username_length)
-				{
-					UsernameCorrect(str, email);
-					if (email.username_correct and email.username_correct_repeat_symbols)
-					{
-						ServernameFirstSymbol(str, email);
-						if (email.servername_first_symbol)
-						{
-							DotSymbolAndIndex(str, email);
-							if (email.dot_symbol)
-							{
-								ServernameLastSymbol(str, email);
-								if (email.servername_last_symbol)
-								{
-									ServernameCorrect(str, email);
-									if (email.servername_correct and email.servername_correct_repeat_symbols)
-									{
-										DomenLength(str, email);
-										if (email.domen_length) DomenCorrect(str, email);
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+	DogSymbolAndIndex(str, email);
+	UsernameLastSymbol(str, email);
+	UsernameLength(str, email);
+	UsernameCorrect(str, email);
+	ServernameFirstSymbol(str, email);
+	DotSymbolAndIndex(str, email);
+	ServernameLastSymbol(str, email);
+	ServernameCorrect(str, email);
+	DomenLength(str, email);
+	DomenCorrect(str, email);
 
 	SetConsoleColor(15);
 	printf("Email ");
-	if (email.domen_correct)
+	if (email.username_first_symbol and
+		email.dog_symbol and
+		email.username_last_symbol and
+		email.username_length and
+		email.username_correct and
+		email.username_correct_repeat_symbols and
+		email.servername_first_symbol and
+		email.dot_symbol and
+		email.servername_last_symbol and
+		email.servername_correct and
+		email.servername_correct_repeat_symbols and
+		email.domen_length and
+		email.domen_correct)
 	{
 		SetConsoleColor(10);
 		printf("correct\n");
