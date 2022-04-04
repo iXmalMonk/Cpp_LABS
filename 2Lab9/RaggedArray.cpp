@@ -1,15 +1,11 @@
-#include<iostream>
 #include<Windows.h>
+#include"RaggedArray.h"
 
-//#define OUTPUT_HANDLE -11				// this
-										// or
-constexpr auto OUTPUT_HANDLE = -11;		// this
+//#define OUTPUT_HANDLE -11
+
+constexpr auto OUTPUT_HANDLE = -11;
 
 // TERMINATE_SYMBOL = NULL
-
-struct RaggedArray {
-	int** data = NULL;
-};
 
 /*
 int InputRows()

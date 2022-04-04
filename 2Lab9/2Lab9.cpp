@@ -8,10 +8,6 @@ int main()
 
 	ChoicePrint(array);
 
-	DeleteRowInRaggedArray(array, 3);
-
-	ChoicePrint(array);
-
 	ChoiceInputtingRaggedArray(array, "raggedarray.txt", "raggedarray.bin");
 	
 	DestroyRaggedArray(array);
