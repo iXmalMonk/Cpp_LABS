@@ -58,9 +58,9 @@ void UsernameLastSymbol(char str[], Email& email)
 		or (str[email.dog_index - 1] >= '0' and str[email.dog_index - 1] <= '9')) email.username_last_symbol = true;
 }
 
-void DogSymbolAndIndex(char str[], Email& email)
+void DogSymbolAndIndex(char str[], Email& email, int len)
 {
-	for (int i = 0; !email.dog_symbol and i < strlen(str); i++)
+	for (int i = 0; !email.dog_symbol and i < len; i++)
 		if (str[i] == '@')
 		{
 			email.dog_symbol = true;
@@ -102,9 +102,9 @@ void ServernameLastSymbol(char str[], Email& email)
 		or (str[email.dot_index - 1] >= '0' and str[email.dot_index - 1] <= '9')) email.servername_last_symbol = true;
 }
 
-void DotSymbolAndIndex(char str[], Email& email)
+void DotSymbolAndIndex(char str[], Email& email, int len)
 {
-	for (int i = email.dog_index + 1; !email.dot_symbol and i < strlen(str); i++)
+	for (int i = email.dog_index + 1; !email.dot_symbol and i < len; i++)
 		if (str[i] == '.')
 		{
 			email.dot_symbol = true;
@@ -128,15 +128,15 @@ void ServernameCorrect(char str[], Email& email)
 	}
 }
 
-void DomenLength(char str[], Email& email)
+void DomenLength(char str[], Email& email, int len)
 {
-	for (int i = email.dot_index + 1, j = 0; i < strlen(str); i++, ++j)
+	for (int i = email.dot_index + 1, j = 0; i < len; i++, ++j)
 		if (j == 1) email.domen_length = true;
 }
 
-void DomenCorrect(char str[], Email& email)
+void DomenCorrect(char str[], Email& email, int len)
 {
-	for (int i = email.dot_index + 1; i < strlen(str); i++)
+	for (int i = email.dot_index + 1; i < len; i++)
 		if ((str[i] >= 'a' and str[i] <= 'z') or (str[i] >= 'A' and str[i] <= 'Z')) email.domen_correct = true;
 		else
 		{
@@ -149,17 +149,19 @@ void CheckEmail(char str[])
 {
 	Email email;
 
+	int len = strlen(str);
+
 	UsernameFirstSymbol(str, email);
-	DogSymbolAndIndex(str, email);
+	DogSymbolAndIndex(str, email, len);
 	UsernameLastSymbol(str, email);
 	UsernameLength(str, email);
 	UsernameCorrect(str, email);
 	ServernameFirstSymbol(str, email);
-	DotSymbolAndIndex(str, email);
+	DotSymbolAndIndex(str, email, len);
 	ServernameLastSymbol(str, email);
 	ServernameCorrect(str, email);
-	DomenLength(str, email);
-	DomenCorrect(str, email);
+	DomenLength(str, email, len);
+	DomenCorrect(str, email, len);
 
 	SetConsoleColor(15);
 	printf("Email ");

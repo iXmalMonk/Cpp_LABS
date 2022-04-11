@@ -116,19 +116,19 @@ void RemoveSmallLetterWords(char str[])
 
 int main()
 {
-	char str[N];
-	gets_s(str);
-	printf("%i", StrCounterPlusMinusZero(str));
+	//char str[N];
+	//gets_s(str);
+	//printf("%i", StrCounterPlusMinusZero(str));
 
-	//char email[N];
-	//while (true)
-	//{
-	//	printf("Enter e-mail: ");
-	//	gets_s(email);
-	//	if (email[0] == '0') break;
-	//	CheckEmail(email);
-	//	printf("\n");
-	//}
+	char email[N];
+	while (true)
+	{
+		printf("Enter e-mail: ");
+		gets_s(email);
+		if (email[0] == '0') break;
+		CheckEmail(email);
+		printf("\n");
+	}
 
 	//char str[N];
 	//printf("Enter string: ");
