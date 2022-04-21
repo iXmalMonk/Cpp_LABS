@@ -12,9 +12,9 @@ void initStack(Stack* stack, int length);
 
 void pushStack(Stack* stack, int number);
 
-double popStack(Stack* stack);
+int popStack(Stack* stack);
 
-double peekStack(Stack* stack);
+int peekStack(Stack* stack);
 
 void clearStack(Stack* stack);
 

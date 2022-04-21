@@ -20,13 +20,13 @@ void pushStack(Stack* stack, int number)
 	stack->data[stack->top] = number;
 }
 
-double popStack(Stack* stack)
+int popStack(Stack* stack)
 {
 	if (stack->top >= 0) return stack->data[stack->top--];
 	else return NULL;
 }
 
-double peekStack(Stack* stack)
+int peekStack(Stack* stack)
 {
 	if (stack->top >= 0) return stack->data[stack->top];
 	else return NULL;
