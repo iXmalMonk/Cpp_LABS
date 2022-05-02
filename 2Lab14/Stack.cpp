@@ -43,7 +43,7 @@ void printStack(Stack const* stack)
 
 void clearStack(Stack* stack)
 {
-	if (stack->head)
+	while (stack->head)
 	{
 		Element* tmp = stack->head;
 		stack->head = stack->head->next;

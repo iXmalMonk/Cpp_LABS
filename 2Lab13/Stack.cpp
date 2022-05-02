@@ -13,7 +13,11 @@ void initStack(Stack* stack, int length)
 	
 void pushStack(Stack* stack, int number)
 {
-	if (stack->top >= stack->length) return;
+	if (stack->top >= stack->length)
+	{
+		stack->length += 10;
+		stack->data = (int*)realloc(stack->data, sizeof(int) * stack->length);
+	}
 	
 	stack->top++;
 
