@@ -1,7 +1,39 @@
 #include<iostream>
 #include"Stack.h"
 
-// Метод, вставка в очередь нового элемента на указанную позицию (метод Insert)
+void insertStack(Stack* stack, int number, int position)
+{
+	Element* tmp = (Element*)malloc(sizeof(Element));
+
+	if (!tmp) return;
+	
+	int counter = 0;
+
+	for (Element* current = stack->head; current != NULL; current = current->next) counter++;
+
+	if (position >= counter) pushStack(stack, number);
+	else if (position == 0)
+	{
+		tmp->data = number;
+		Element* old_head = stack->head; // old
+		stack->head = tmp; // new
+		tmp->next = old_head;
+	}
+	else
+	{
+		int i = 0;
+		Element* next = stack->head, *prev = NULL;
+		while (i != position)
+		{
+			prev = next;
+			next = next->next;
+			i++;
+		}
+		tmp->data = number;
+		tmp->next = next;
+		prev->next = tmp;
+	}
+}
 
 void pushStack(Stack* stack, int number)
 {

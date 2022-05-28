@@ -17,17 +17,27 @@ void pushNumberInStackWithTxtFile(const char* filename, Stack* first_stack, Stac
 
 int main()
 {
-	Stack first_stack, second_stack;
+	//Stack first_stack, second_stack;
 
-	pushNumberInStackWithTxtFile("numbers.txt", &first_stack, &second_stack);
+	//pushNumberInStackWithTxtFile("numbers.txt", &first_stack, &second_stack);
 
-	printStack(&first_stack);
+	//printStack(&first_stack);
+	//printf("\n");
+	//printStack(&second_stack);
+
+	//clearStack(&first_stack);
+	//clearStack(&second_stack);
+
+	Stack stack;
+
+	pushStack(&stack, 1);
+	pushStack(&stack, 3);
+	pushStack(&stack, 4);
+	printStack(&stack);
 	printf("\n");
-	printStack(&second_stack);
-
-	clearStack(&first_stack);
-	clearStack(&second_stack);
-
+	insertStack(&stack, 2, 2);
+	printf("\n");
+	printStack(&stack);
 	return 0;
 }
 

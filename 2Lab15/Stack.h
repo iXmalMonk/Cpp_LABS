@@ -12,6 +12,8 @@ struct Stack
 	Element* head = NULL, * tail = NULL;
 };
 
+void insertStack(Stack* stack, int number, int position);
+
 void pushStack(Stack* stack, int number);
 
 int popStack(Stack* stack);
